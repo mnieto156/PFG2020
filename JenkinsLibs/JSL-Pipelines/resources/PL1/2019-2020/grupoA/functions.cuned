@@ -1,0 +1,70 @@
+/* vacio  */
+
+#define FALSE 0;
+#define TRUE 1;
+#define ORIGEN 0;
+
+struct Punto {
+	int x;
+	int y;
+}
+
+int a=3;
+int n;
+Punto x,y;
+
+void nada () {
+}
+
+int restar (int x, int y) {
+	return x - y - n;
+}
+
+int compara (Punto x, Punto y) {
+	int a,b;
+	a=restar(x.x,y.x);
+	b=restar(x.y,y.y);
+	
+	n = 0-(1-restar(3,a))-b == z > 3 || x.a;
+	{
+		printi(5);
+		a=b;
+	}
+	{
+		int c=0;
+		for(a=0,a>3-5,a=a-2){
+			b=b-7;
+			n=0;
+		}
+		c=7;
+		printi(c);
+		if (a=2-3>b)
+			s=9;
+		if (a=5){
+			s=4;
+		}
+		else{
+			int i=9;
+			a=i;
+		}
+		if (0>1-2){
+			if (a>3)
+				printi(a);
+			else{
+				a=0;
+				printi(b);
+			}
+			a=a-b;
+		}
+	}
+	return a == b == 0;
+}	
+
+void main() {
+	printi(a=x-1);
+	
+	if (a==1){
+		printc("hola mundo");}
+	else{
+		printc("adios mundo");}
+}

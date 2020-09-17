@@ -1,0 +1,18 @@
+/* Este es un comentario correcto */
+
+/* Este comentario contiene varias lineas
+	Esta es la primera linea
+	Esta es la segunda linea
+*/
+
+/* Este es un comentario con comentarios anidados correctamente
+	/* Comentario Anidado 1
+		/* Comentario Anidado 1.1 */
+		/* Comentario anidado 1.2 */
+	*/
+*/
+
+/* ERROR. Este es un comentario mal balanceado */ */
+/* ERROR. Este es un comentario /* mal balanceado */
+
+/* ERROR. Este es un comentario no cerrado 

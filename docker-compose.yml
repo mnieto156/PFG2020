@@ -1,0 +1,124 @@
+version: "3"
+
+services:
+
+  postgres:
+    image: postgres:9.6
+
+    container_name: postgres
+
+    ports:
+      - "5432:5432"
+
+    restart: always
+    
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_DB=gitea
+
+    networks:
+      - internal
+      - host_out
+
+    volumes:
+      - ./data/sql:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  nginx:
+    image: nginx:stable-alpine
+
+    container_name: nginx
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - /var/www:/var/www
+      - ./data/nginx:/etc/nginx
+
+    networks:
+      - internal
+      - host_out
+      
+    depends_on:
+      - gitea
+      - jenkins
+
+    restart: always
+
+  gitea:
+    image: gitea/gitea:latest
+
+    container_name: gitea
+
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    
+    restart: always
+
+    networks:
+      - internal
+
+    volumes:
+      - ./data/gitea:/data
+
+    ports:
+      - "3000"
+      - "22022:22"
+
+    depends_on:
+      - postgres
+
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+
+    container_name: jenkins
+
+    ports:
+      - "50000"
+
+    networks:
+      - internal
+
+    volumes:
+      - jenkins_data:/var/jenkins_home
+
+    restart: always
+
+    depends_on:
+      - gitea
+
+  plweb:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+
+    container_name: plweb
+
+    environment:
+      - DATASOURCE_URL=postgres/ProcLen_DB
+      - GITEA_BASE_URL=http://gitea:3000
+      - ROOT_PATH=/
+
+    ports:
+      - "9999"
+
+    networks:
+      - internal
+    depends_on:
+      - postgres
+
+
+
+volumes:
+  jenkins_data:
+
+networks:
+  host_out:         
+  internal:
+    
